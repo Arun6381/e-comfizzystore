@@ -1,0 +1,23 @@
+/* App.css or a specific CSS file */
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full screen height */
+}
+.custom-toast {
+  background-color: #b500c5 !important; 
+  font-size: 16px !important;
+}
+
+.custom-toast-success {
+  background-color: #6d1070 !important;
+}
+
+.custom-toast-error {
+  background-color: #f32525 !important;
+}
+
+.custom-progress {
+  background-color: #360532 !important; 
+}

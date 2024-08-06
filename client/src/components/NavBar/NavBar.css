@@ -1,0 +1,130 @@
+/* Navbar.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #fcfcfc;
+  color: rgb(190, 20, 190);
+}
+
+.navbar {
+  height: 60px;
+  background-color: transparent;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.nav-elements {
+  display: flex;
+  align-items: center;
+}
+
+.nav-elements ul {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-elements ul li {
+  position: relative;
+}
+
+.nav-elements ul li a,
+.nav-elements ul li button {
+ color: rgb(190, 20, 190);
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-size: 16px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
+.nav-elements ul li a:hover,
+.nav-elements ul li button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.nav-elements ul li button:focus {
+  outline: none;
+}
+
+.nav-elements ul li span {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .nav-elements ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-elements ul li {
+    margin-bottom: 10px;
+  }
+
+  .nav-elements ul li:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .menu-icon {
+    display: block;
+  }
+
+  .nav-elements {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #0a0044;
+    width: 0;
+    height: calc(100vh - 60px);
+    transition: width 0.3s ease-in;
+    overflow: hidden;
+  }
+
+  .nav-elements.active {
+    width: 270px;
+  }
+
+  .nav-elements ul {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .nav-elements ul li {
+    margin-right: 0;
+    margin-top: 22px;
+  }
+}

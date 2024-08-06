@@ -1,0 +1,35 @@
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(1, 1, 41);
+
+}
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #570657;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ca1aca ;
+  border-radius: 12px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background:  #b51aca ;
+  border-radius: 12px;
+}
+
+.blockquote-footer {
+  color: #cd64e2 !important;
+}

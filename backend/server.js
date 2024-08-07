@@ -41,30 +41,24 @@ app.use(passport.session());
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 // Routes
-app.use("/api/products", require("./routes/producRoutes")); // Ensure the route file name is correct
-app.use("/api/auth", require("./routes/useRoutes")); // Updated route path
+app.use("/api/products", require("./routes/producRoutes"));
+app.use("/api/auth", require("./routes/useRoutes"));
 
-// Create payment intent
-app.post(
-  "/api/create-payment-intent",
+app.post("/api/create-payment-intent", async (req, res) => {
+  const { amount } = req.body;
 
-  async (req, res) => {
-    const { amount } = req.body;
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount * 100,
+      currency: "usd",
+    });
 
-    try {
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount: amount * 100, // Amount in cents
-        currency: "usd",
-      });
-
-      res.json({ clientSecret: paymentIntent.client_secret });
-    } catch (err) {
-      res.status(500).json({ message: err.message });
-    }
+    res.json({ clientSecret: paymentIntent.client_secret });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
-);
+});
 
-// Connect to MongoDB and start server
 mongoose
   .connect(process.env.DATABASE, {
     useNewUrlParser: true,

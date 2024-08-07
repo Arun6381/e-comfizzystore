@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import axios from "axios";
-import { Hourglass } from "react-loader-spinner"; // Import the Hourglass loader
+import { Hourglass } from "react-loader-spinner";
 import Navbar from "./components/NavBar/NavBar";
 import ProductList from "./components/Products/ProductList";
 import Cart from "./components/Cart/Cart";
@@ -14,6 +14,12 @@ import Register from "./components/Auth/Register/Register";
 import Login from "./components/Auth/Login/Login";
 import "./App.css";
 import Footer from "./components/Footer/Footer";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
+const stripePromise = loadStripe(
+  "pk_test_51PhofJRtoqmg9Y2cedNrDonsTnlL935F7VtmD8Aphshi1uiMkbhWZlYiMHgUThEFMoSsN44itVoADb78xcxUBfMA00IjzPhCdc"
+);
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -21,7 +27,7 @@ function App() {
     JSON.parse(localStorage.getItem("cartItems")) || []
   );
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -35,7 +41,7 @@ function App() {
       } catch (error) {
         console.error("Error fetching products:", error.message);
       } finally {
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false);
       }
     };
 
@@ -99,7 +105,7 @@ function App() {
             ariaLabel="hourglass-loading"
             wrapperStyle={{}}
             wrapperClass=""
-            colors={[" #bf20df", "#c64cdf"]}
+            colors={["#bf20df", "#c64cdf"]}
           />
         </div>
       ) : (
@@ -121,16 +127,18 @@ function App() {
           <Route
             path="/payment"
             element={
-              <PaymentForm
-                totalAmount={cartItems.reduce(
-                  (acc, item) => acc + item.price,
-                  0
-                )}
-                onPaymentSuccess={() => {
-                  setCartItems([]);
-                  console.log("Payment successful!");
-                }}
-              />
+              <Elements stripe={stripePromise}>
+                <PaymentForm
+                  totalAmount={cartItems.reduce(
+                    (acc, item) => acc + item.price,
+                    0
+                  )}
+                  onPaymentSuccess={() => {
+                    setCartItems([]);
+                    console.log("Payment successful!");
+                  }}
+                />
+              </Elements>
             }
           />
           <Route path="/register" element={<Register />} />

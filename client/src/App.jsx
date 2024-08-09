@@ -16,6 +16,7 @@ import "./App.css";
 import Footer from "./components/Footer/Footer";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import NotFound from "./components/errer404/error404";
 
 const stripePromise = loadStripe(
   "pk_test_51PhofJRtoqmg9Y2cedNrDonsTnlL935F7VtmD8Aphshi1uiMkbhWZlYiMHgUThEFMoSsN44itVoADb78xcxUBfMA00IjzPhCdc"
@@ -143,6 +144,7 @@ function App() {
           />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       )}
       <Footer />
